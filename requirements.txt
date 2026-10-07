@@ -1,0 +1,5 @@
+# Server Wrench — required packages
+python-telegram-bot>=21.0,<23
+tzdata
+# charts in reports (without it, reports are text-only)
+pillow>=10.1
