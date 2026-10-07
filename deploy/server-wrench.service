@@ -1,0 +1,50 @@
+# Server Wrench — systemd service (reference copy)
+#
+# install.sh writes this file for you with the right paths. Use this copy only for a
+# manual setup: replace /opt/server-wrench with your folder, then
+#     cp deploy/server-wrench.service /etc/systemd/system/
+#     mkdir -p /opt/server-wrench/data /opt/server-wrench/.work
+#     systemctl daemon-reload && systemctl enable --now server-wrench
+
+[Unit]
+Description=Server Wrench - read-only Telegram bot for this server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/server-wrench
+ExecStart=/opt/server-wrench/venv/bin/python /opt/server-wrench/bot.py
+Restart=always
+RestartSec=10
+# 78 = the bot found a configuration mistake (no token, or a token Telegram rejects);
+# restarting would not fix it, so systemd leaves it stopped with the reason in the log.
+RestartPreventExitStatus=78
+KillSignal=SIGINT
+TimeoutStopSec=30
+UMask=0077
+
+# Gentle on the server: lowest CPU and disk priority, capped memory, and the
+# first process to go if the machine ever runs out of RAM.
+Nice=10
+IOSchedulingClass=idle
+CPUWeight=20
+MemoryMax=400M
+OOMScoreAdjust=600
+
+# Read-only by construction: for this process the whole filesystem is mounted
+# read-only; only its own data/ and .work/ folders can be written.
+# (Delete this block if the service does not start on an unusual system.)
+ProtectSystem=strict
+ReadWritePaths=-/opt/server-wrench/data -/opt/server-wrench/.work
+NoNewPrivileges=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH CAP_SYS_PTRACE
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,47 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: pip install -r requirements.txt -r requirements-bigfiles.txt pyflakes
+      - name: Lint
+        run: python -m pyflakes bot.py tests/test_offline.py docs/make_samples.py
+      - name: Test-suite (fake server, fake Telegram, then the real process against a local stand-in)
+        run: python tests/test_offline.py
+
+  installer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Shell syntax and shellcheck
+        run: |
+          bash -n install.sh
+          shellcheck install.sh
+      - name: The reference service file is one systemd accepts
+        run: |
+          sudo mkdir -p /opt/server-wrench/venv/bin
+          sudo ln -s "$(command -v python3)" /opt/server-wrench/venv/bin/python
+          systemd-analyze verify --recursive-errors=no deploy/server-wrench.service

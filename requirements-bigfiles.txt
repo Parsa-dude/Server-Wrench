@@ -1,0 +1,7 @@
+# Optional: big-file mode (one file of up to 2 GB instead of 45 MB parts).
+# Needs API_ID and API_HASH in .env — see README.
+telethon>=1.36,<2
+
+# Strongly recommended next to it — fast encryption in C; without it uploads are
+# slow and use much more CPU:
+#     venv/bin/pip install cryptg
