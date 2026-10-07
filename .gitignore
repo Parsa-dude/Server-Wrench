@@ -1,0 +1,17 @@
+# secrets and local state — never commit these
+.env
+data/
+.work/
+*.session
+*.session-journal
+
+# python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# editors / OS
+.idea/
+.vscode/
+.DS_Store
