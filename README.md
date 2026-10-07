@@ -7,12 +7,14 @@
 A read-only bot that works out by itself what runs on a server, watches it,<br>
 and hands you files, backups, logs and reports whenever you ask.
 
-**English** · [فارسی](README.fa.md)
+[![Tests](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml/badge.svg)](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
+![Telegram](https://img.shields.io/badge/python--telegram--bot-21%2B-2CA5E0?logo=telegram&logoColor=white)
+![Platform](https://img.shields.io/badge/Linux-systemd%20%C2%B7%20Docker-FCC624?logo=linux&logoColor=black)
+![Interface](https://img.shields.io/badge/Interface-English%20%C2%B7%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-F28C28)
+![License](https://img.shields.io/badge/License-MIT-2EA44F)
 
-[![tests](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml/badge.svg)](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml)
-![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
-![Linux](https://img.shields.io/badge/platform-linux-informational)
-![License: MIT](https://img.shields.io/badge/license-MIT-green)
+**English** · [فارسی](README.fa.md)
 
 </div>
 
@@ -156,6 +158,23 @@ The caption under a weekly report:
 <p align="center"><img src="docs/disk.png" width="48%" alt="Disk usage chart"></p>
 
 </details>
+
+## How it works
+
+```mermaid
+flowchart TD
+    A["systemd services"] --> F
+    B["Programs started by hand<br/>nohup, screen, tmux, pm2"] --> F
+    C["Docker containers"] --> F
+    D["nginx, Apache and Caddy sites"] --> F
+    E["Project folders"] --> F
+    F["Server Wrench reads the server and builds one picture of it<br/>nothing is configured; it looks again every 5 minutes"]
+    F --> G["Watches<br/>one sample a minute: CPU, RAM, disk, network, every service"]
+    F --> H["Answers<br/>files, search, backups, logs, status"]
+    G --> I["Alerts and scheduled reports"]
+    H --> J["Your Telegram chat<br/>admins only"]
+    I --> J
+```
 
 ## It configures itself
 
@@ -420,4 +439,11 @@ docs/                         sample images and the script that draws them
 
 ## License
 
-[MIT](LICENSE) © Parsa Rahmani
+[MIT](LICENSE) — free to use, change and build on.
+
+## Author
+
+**Parsa Rahmani** — Python developer; Telegram bots, automation and AI integration.
+[parsa-projects.ir](https://parsa-projects.ir) · [GitHub](https://github.com/Parsa-dude)
+
+If this project is useful to you, a ⭐ helps other people find it.

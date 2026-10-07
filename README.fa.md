@@ -7,12 +7,14 @@
 رباتی فقط‌خواندنی که خودش می‌فهمد روی سرور چه چیزهایی اجرا می‌شود، حواسش به آن‌ها هست<br>
 و هر وقت بخواهید فایل، بک‌آپ، لاگ و گزارش را کف دستتان می‌گذارد.
 
-[English](README.md) · **فارسی**
+[![Tests](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml/badge.svg)](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
+![Telegram](https://img.shields.io/badge/python--telegram--bot-21%2B-2CA5E0?logo=telegram&logoColor=white)
+![Platform](https://img.shields.io/badge/Linux-systemd%20%C2%B7%20Docker-FCC624?logo=linux&logoColor=black)
+![Interface](https://img.shields.io/badge/Interface-English%20%C2%B7%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-F28C28)
+![License](https://img.shields.io/badge/License-MIT-2EA44F)
 
-[![tests](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml/badge.svg)](https://github.com/Parsa-dude/Server-Wrench/actions/workflows/tests.yml)
-![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
-![Linux](https://img.shields.io/badge/platform-linux-informational)
-![License: MIT](https://img.shields.io/badge/license-MIT-green)
+[English](README.md) · **فارسی**
 
 </div>
 
@@ -122,6 +124,27 @@
 <p align="center"><img src="docs/disk.png" width="48%" alt="نمودار مصرف دیسک"></p>
 
 </details>
+
+## چطور کار می‌کند؟
+
+</div>
+
+```mermaid
+flowchart TD
+    A["سرویس‌های systemd"] --> F
+    B["برنامه‌هایی که دستی اجرا شده‌اند<br/>nohup, screen, tmux, pm2"] --> F
+    C["کانتینرهای Docker"] --> F
+    D["سایت‌های nginx و Apache و Caddy"] --> F
+    E["پوشه‌های پروژه"] --> F
+    F["ربات سرور را می‌خواند و یک تصویر کامل از آن می‌سازد<br/>بدون هیچ تنظیمی؛ هر 5 دقیقه دوباره نگاه می‌کند"]
+    F --> G["زیر نظر می‌گیرد<br/>هر دقیقه یک نمونه: پردازنده، رم، دیسک، شبکه و همه‌ی سرویس‌ها"]
+    F --> H["جواب می‌دهد<br/>فایل، جستجو، بک‌آپ، لاگ، وضعیت"]
+    G --> I["هشدارها و گزارش‌های خودکار"]
+    H --> J["چت تلگرام شما<br/>فقط ادمین‌ها"]
+    I --> J
+```
+
+<div dir="rtl">
 
 ## خودش را تنظیم می‌کند
 
@@ -406,6 +429,13 @@ docs/                         sample images and the script that draws them
 
 ## مجوز
 
-[MIT](LICENSE) © Parsa Rahmani
+[MIT](LICENSE) — استفاده، تغییر و توسعه‌ی آن آزاد است.
+
+## سازنده
+
+**پارسا رحمانی** — توسعه‌دهنده‌ی پایتون؛ ربات تلگرام، اتوماسیون و اتصال هوش مصنوعی.
+[parsa-projects.ir](https://parsa-projects.ir) · [GitHub](https://github.com/Parsa-dude)
+
+اگر این پروژه به کارتان آمد، یک ⭐ کمک می‌کند دیگران هم پیدایش کنند.
 
 </div>
